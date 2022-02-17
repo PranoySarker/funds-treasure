@@ -13,6 +13,12 @@ function validateInputs(input) {
     }
 }
 
+// function clearInputFields(input) {
+//     const inputField = document.getElementById(input + '-field');
+//     inputField.value = '';
+// }
+
+
 // event handler for calculate button 
 document.getElementById('calc-btn').addEventListener('click', function () {
 
@@ -25,7 +31,7 @@ document.getElementById('calc-btn').addEventListener('click', function () {
     const clothesAmount = validateInputs('clothes')
 
     const totalExpense = foodAmount + rentAmount + clothesAmount;
-    console.log(totalExpense);
+
     const totalExpenseText = document.getElementById('total-expense')
     if (totalExpense > incomeAmount) {
         totalExpenseText.textContent = "Expense should not larger than your Income"
@@ -37,6 +43,8 @@ document.getElementById('calc-btn').addEventListener('click', function () {
     }
     const balance = document.getElementById('balance');
     balance.innerText = incomeAmount - totalExpense;
+
+
 })
 
 // Event handler for save button 
@@ -53,20 +61,23 @@ document.getElementById('save-btn').addEventListener('click', function () {
     const percentageLaw = saveFieldValue / 100;
     const savingsAmount = incomeBalance * percentageLaw;
 
+    //remaining balace
+    const remainingBalance = document.getElementById('remaining-balance');
+
+
 
     // validation for savings balance field 
     const savingsField = document.getElementById('saving-amount')
     if (savingsAmount > balanceAmount) {
-        savingsField.textContent = "Your savings should not larger than your Income"
+        savingsField.innerText = "Your savings should not larger than your Income"
         savingsField.style.color = "red"
+        remainingBalance.innerText = "";
     }
     else {
         savingsField.textContent = savingsAmount;
         savingsField.style.color = "black";
+        remainingBalance.innerText = balanceAmount - savingsAmount;
     }
-
-    //remaining balace
-    document.getElementById('remaining-balance').innerText = balanceAmount - savingsAmount;
 
 })
 

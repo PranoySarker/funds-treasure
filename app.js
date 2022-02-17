@@ -1,3 +1,4 @@
+// Fuction to validate all the input field 
 function validateInputs(input) {
     const inputField = document.getElementById(input + '-field');
     const inputAmount = parseInt(inputField.value);
@@ -12,20 +13,16 @@ function validateInputs(input) {
     }
 }
 
-
+// event handler for calculate button 
 document.getElementById('calc-btn').addEventListener('click', function () {
 
     const incomeAmount = validateInputs('income');
-    console.log(incomeAmount);
 
     const foodAmount = validateInputs('food');
-    console.log(foodAmount);
 
     const rentAmount = validateInputs('rent')
-    console.log(rentAmount);
 
     const clothesAmount = validateInputs('clothes')
-    console.log(clothesAmount);
 
     const totalExpense = foodAmount + rentAmount + clothesAmount;
     console.log(totalExpense);
@@ -36,8 +33,40 @@ document.getElementById('calc-btn').addEventListener('click', function () {
     }
     else {
         totalExpenseText.innerText = totalExpense;
+        totalExpenseText.style.color = "black";
     }
     const balance = document.getElementById('balance');
     balance.innerText = incomeAmount - totalExpense;
+})
+
+// Event handler for save button 
+document.getElementById('save-btn').addEventListener('click', function () {
+    const incomeBalance = validateInputs('income');
+
+    //get balance amount
+    const balance = document.getElementById('balance');
+    const balanceAmount = parseInt(balance.innerText);
+
+    //calcultion for percentage
+    const saveField = document.getElementById('save-field');
+    const saveFieldValue = parseInt(saveField.value);
+    const percentageLaw = saveFieldValue / 100;
+    const savingsAmount = incomeBalance * percentageLaw;
+
+
+    // validation for savings balance field 
+    const savingsField = document.getElementById('saving-amount')
+    if (savingsAmount > balanceAmount) {
+        savingsField.textContent = "Your savings should not larger than your Income"
+        savingsField.style.color = "red"
+    }
+    else {
+        savingsField.textContent = savingsAmount;
+        savingsField.style.color = "black";
+    }
+
+    //remaining balace
+    document.getElementById('remaining-balance').innerText = balanceAmount - savingsAmount;
+
 })
 

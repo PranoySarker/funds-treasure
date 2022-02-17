@@ -30,20 +30,27 @@ document.getElementById('calc-btn').addEventListener('click', function () {
 
     const clothesAmount = validateInputs('clothes')
 
-    const totalExpense = foodAmount + rentAmount + clothesAmount;
+    const totalExpenseText = document.getElementById('total-expense');
 
-    const totalExpenseText = document.getElementById('total-expense')
+    const totalExpense = foodAmount + rentAmount + clothesAmount;
+    const balance = document.getElementById('balance');
+
+
     if (totalExpense > incomeAmount) {
-        totalExpenseText.textContent = "Expense should not larger than your Income"
-        totalExpenseText.style.color = "red"
+        totalExpenseText.innerText = "Expense should not larger than your Income";
+        totalExpenseText.style.color = "red";
+        balance.innerText = '';
+    }
+    else if (isNaN(incomeAmount)) {
+        totalExpenseText.innerText = "Require Income field value";
+        totalExpenseText.style.color = "red";
+        balance.innerText = '';
     }
     else {
         totalExpenseText.innerText = totalExpense;
         totalExpenseText.style.color = "black";
+        balance.innerText = incomeAmount - totalExpense;
     }
-    const balance = document.getElementById('balance');
-    balance.innerText = incomeAmount - totalExpense;
-
 
 })
 
